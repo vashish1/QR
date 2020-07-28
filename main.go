@@ -3,6 +3,7 @@ package main
 import (
 	"image/png"
 	"net/http"
+	"os"
 	"strings"
 	"text/template"
 
@@ -11,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-
+var port = os.Getenv("PORT")
 func main() {
 	r:=mux.NewRouter()
 
@@ -19,7 +20,7 @@ func main() {
 	r.HandleFunc("/QR/Generated", viewCodeHandler).Methods("POST","GET")
 	http.Handle("/",r)
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":"+port, nil)
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
